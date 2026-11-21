@@ -193,6 +193,7 @@
     <h3>Your messages stay on your phone</h3>
     <p>PandaPay reads bank SMS on your device, with your permission, and skips personal messages and one-time passwords. The message text is not sent to our servers. Only the transaction details (amount, merchant, date, card or account ending, and type) are synced, so your data shows on any phone you sign in to. You can turn SMS reading off in Settings at any time, and you can delete your account from Settings.</p>
     <p>PandaPay does not lend money, move money or hold your funds. It is for people aged 18 and over.</p>
+    <p class="small">This page counts visits and taps on the join buttons, by where the link came from. It uses no cookies and stores no IP address or other personal data.</p>
   </section>
 
   <section aria-labelledby="new-h" class="about">
@@ -249,6 +250,22 @@
         navigator.clipboard.writeText(text).then(done, fail);
       } catch (e) { fail(); }
     });
+  })();
+</script>
+<script>
+  /* Anonymous visit counter: records only where the visit came from (?s=...) and whether a join button was tapped. No cookies, no IP address, no personal data. */
+  (function () {
+    try {
+      var s = new URLSearchParams(location.search).get('s') || 'direct';
+      var u = 'https://pandapay-replyhook.chandresh-kerkar0007.workers.dev/hit?s=' + encodeURIComponent(s);
+      fetch(u + '&e=view', { mode: 'no-cors', keepalive: true });
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        if (a.href.indexOf('groups.google.com') > -1) fetch(u + '&e=group', { mode: 'no-cors', keepalive: true });
+        else if (a.href.indexOf('play.google.com') > -1) fetch(u + '&e=join', { mode: 'no-cors', keepalive: true });
+      });
+    } catch (err) {}
   })();
 </script>
 </body>
