@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Page and images respond
         run: |
-          base="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
+          base="https://beta.pandapath.live"
           for path in "/" "/assets/icon.png" "/assets/feature.png" "/assets/shot-01.png" "/assets/shot-08.png"; do
             code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$base$path")
             echo "$base$path -> $code"
