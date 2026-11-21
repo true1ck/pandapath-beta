@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="PandaPay closed test: screenshots, what the app does, and how to join.">
+<title>PandaPay Beta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<style>
+  html{-webkit-text-size-adjust:100%} body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+
+  /* Layout: one centered column like a phone store page. Banner, app header, facts row,
+     join actions, a snapping screenshot strip, then the text sections. */
+  :root {
+    --bg: #f4f8ef;
+    --surface: #ffffff;
+    --fg: #11151a;
+    --muted: #4b5661;
+    --line: #d9e3cd;
+    --accent: #3a7421;
+    --on-accent: #ffffff;
+    --leaf: #e2f1d0;
+    --note-bg: #eef6e1;
+    --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1310;
+      --surface: #161d18;
+      --fg: #e9f0e6;
+      --muted: #a4b2a6;
+      --line: #2a352d;
+      --accent: #9bd566;
+      --on-accent: #0f1b08;
+      --leaf: #1f2b22;
+      --note-bg: #19241c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1310;
+    --surface: #161d18;
+    --fg: #e9f0e6;
+    --muted: #a4b2a6;
+    --line: #2a352d;
+    --accent: #9bd566;
+    --on-accent: #0f1b08;
+    --leaf: #1f2b22;
+    --note-bg: #19241c;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 20px 56px;
+  }
+  .page { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+  h1, h2 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+  h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  p { margin: 0; }
+
+  .banner { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: var(--leaf); line-height: 0; }
+  .banner img { display: block; width: 100%; height: auto; }
+
+  .head { display: flex; gap: 16px; align-items: center; min-width: 0; }
+  .head img { width: 84px; height: 84px; border-radius: 20px; flex: none; border: 1px solid var(--line); background: var(--surface); }
+  .head > div { min-width: 0; }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  .sub { color: var(--accent); font-weight: 600; font-size: 14px; margin-top: 4px; }
+  .tag { color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+  .facts { list-style: none; margin: 0; padding: 14px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); text-align: center; }
+  .facts li { padding: 0 6px; border-left: 1px solid var(--line); min-width: 0; }
+  .facts li:first-child { border-left: 0; }
+  .facts b { display: block; font-family: var(--font-display); font-size: 16px; font-weight: 700; }
+  .facts span { display: block; color: var(--muted); font-size: 12.5px; }
+
+  .actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    min-height: 50px; padding: 12px 18px; border-radius: 26px; font-weight: 600; font-size: 16px;
+    text-decoration: none; border: 1.5px solid var(--accent); color: var(--accent); background: transparent;
+  }
+  .btn.primary { background: var(--accent); color: var(--on-accent); }
+  .btn:focus-visible, .copy:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .state { font-size: 14px; color: var(--muted); }
+  .state strong { color: var(--fg); font-weight: 600; }
+
+  .strip {
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x proximity; padding: 4px 2px 12px;
+    margin-inline: -2px; -webkit-overflow-scrolling: touch;
+  }
+  .strip figure { margin: 0; flex: none; width: min(46vw, 216px); scroll-snap-align: start; }
+  .strip img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: var(--leaf); }
+
+  .about { display: flex; flex-direction: column; gap: 12px; max-width: 65ch; }
+  .about ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .about li::marker { color: var(--accent); }
+  .about h3 { font-family: var(--font-display); font-size: 16px; margin: 8px 0 0; }
+
+  .note { background: var(--note-bg); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; max-width: 65ch; }
+  .note b { font-family: var(--font-display); }
+
+  .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 12px; max-width: 65ch; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; }
+  .steps li::before {
+    content: counter(step); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent); color: var(--on-accent); font-weight: 700; font-size: 14px; font-family: var(--font-display);
+  }
+
+  .share { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .share pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-body); font-size: 14.5px; line-height: 1.5; user-select: all; }
+  .copy {
+    align-self: flex-start; min-height: 44px; padding: 10px 18px; border-radius: 22px; border: 1.5px solid var(--accent);
+    background: transparent; color: var(--accent); font: 600 15px var(--font-body); cursor: pointer;
+  }
+  .small { color: var(--muted); font-size: 13.5px; }
+  .links { overflow-wrap: anywhere; }
+
+  @media (min-width: 640px) {
+    .actions { flex-direction: row; }
+    .actions .btn { flex: 1; }
+    .head img { width: 96px; height: 96px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .strip { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="banner"><img src="assets/feature.png" alt="PandaPay: track spending from bank SMS, see card rewards, split bills."></div>
+
+  <header class="head">
+    <img src="assets/icon.png" alt="PandaPay app icon: a panda peeking out of a green wallet">
+    <div>
+      <h1>PandaPay</h1>
+      <p class="sub">Closed test build</p>
+      <p class="tag">Finance &middot; Personal money tracker for India</p>
+    </div>
+  </header>
+
+  <ul class="facts" aria-label="App facts">
+    <li><b>Finance</b><span>Category</span></li>
+    <li><b>18+</b><span>Audience</span></li>
+    <li><b>Android 7+</b><span>Needs</span></li>
+    <li><b>Beta</b><span>Closed test</span></li>
+  </ul>
+
+  <section class="actions" aria-label="Join the test">
+    <a class="btn primary" id="join-alpha" href="https://play.google.com/apps/testing/app.pandapay.pandapay" target="_blank" rel="noopener">Join the closed test</a>
+    <a class="btn" id="join-internal" href="https://play.google.com/apps/internaltest/4701336237795171041" target="_blank" rel="noopener">Open the internal test</a>
+  </section>
+  <p class="state"><strong>Status on 22 Nov 2026.</strong> The closed test is in Google's review, so its link works once Google approves it. The internal test link works today.</p>
+
+  <section aria-labelledby="shots-h" style="display:flex;flex-direction:column;gap:12px">
+    <h2 id="shots-h">Screenshots</h2>
+    <div class="strip" tabindex="0" aria-label="App screenshots, scroll sideways">
+      <figure><img src="assets/shot-01.png" alt="Home: your money, one clear view" loading="lazy"></figure>
+      <figure><img src="assets/shot-02.png" alt="Rewards: see what your cards earn" loading="lazy"></figure>
+      <figure><img src="assets/shot-03.png" alt="Activity: bank SMS become tidy transactions" loading="lazy"></figure>
+      <figure><img src="assets/shot-04.png" alt="Spending: see where your money goes" loading="lazy"></figure>
+      <figure><img src="assets/shot-05.png" alt="Cards: know which card earns more" loading="lazy"></figure>
+      <figure><img src="assets/shot-06.png" alt="Splits: split bills with friends" loading="lazy"></figure>
+      <figure><img src="assets/shot-07.png" alt="Consent: clear consent before any SMS is read" loading="lazy"></figure>
+      <figure><img src="assets/shot-08.png" alt="Privacy: your messages stay on your phone" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-h">
+    <h2 id="about-h">About this app</h2>
+    <p>PandaPay is a personal finance app for India. It builds your spending picture from the bank, card and wallet messages you already get, so you don't have to type in every payment.</p>
+    <h3>What you can do</h3>
+    <ul>
+      <li><b>See where your money goes.</b> Transactions from your bank and card SMS are sorted by category and merchant and shown by month.</li>
+      <li><b>Know which card earns more.</b> Keep your credit cards in one place, see the rewards each one earns and the limits you have left, and check which card suits a purchase.</li>
+      <li><b>Split with friends.</b> Add shared expenses, see who owes whom, and keep group and one-to-one balances in one list.</li>
+      <li><b>Stay on top of bills.</b> Due-date reminders and a clear view of your card spends.</li>
+      <li><b>Fix what we get wrong.</b> Edit any transaction, mark investments or transfers, and your corrections are kept.</li>
+      <li><b>Nearby-merchant alerts.</b> Optional, and only if you turn on location.</li>
+    </ul>
+    <h3>Your messages stay on your phone</h3>
+    <p>PandaPay reads bank SMS on your device, with your permission, and skips personal messages and one-time passwords. The message text is not sent to our servers. Only the transaction details (amount, merchant, date, card or account ending, and type) are synced, so your data shows on any phone you sign in to. You can turn SMS reading off in Settings at any time, and you can delete your account from Settings.</p>
+    <p>PandaPay does not lend money, move money or hold your funds. It is for people aged 18 and over.</p>
+  </section>
+
+  <section aria-labelledby="new-h" class="about">
+    <h2 id="new-h">What's new in build 200</h2>
+    <ul>
+      <li>Creating a new account now goes straight on to account activation once you enter the code.</li>
+      <li>Better reading of bank statements imported from PDF and CSV.</li>
+    </ul>
+  </section>
+
+  <section class="note" aria-labelledby="test-h">
+    <b id="test-h">What you will see while this is a test</b>
+    <p>Until Google approves the app, the Play page may show the name <i>app.pandapay.pandapay (unreviewed)</i>, a plain Android icon and a warning that this is an unverified test build. That is normal for a test build. The name, icon and screenshots on this page appear once Google approves it.</p>
+  </section>
+
+  <section aria-labelledby="join-h" style="display:flex;flex-direction:column;gap:14px">
+    <h2 id="join-h">How to join the closed test</h2>
+    <ol class="steps">
+      <li><span>On an Android phone, sign in to Google Play with the same Google account your invitation was sent to.</span></li>
+      <li><span>Open the closed test link above in that phone's browser or in Google Play.</span></li>
+      <li><span>Tap <b>Become a tester</b>, then tap the link to download PandaPay from Google Play.</span></li>
+      <li><span>Install and use the app. Please stay joined for about three weeks: Google counts testers who stay in the test for 14 days in a row.</span></li>
+    </ol>
+  </section>
+
+  <section class="share" aria-labelledby="share-h">
+    <h2 id="share-h">Message for your testers</h2>
+    <pre id="msg">Join the PandaPay closed test: https://play.google.com/apps/testing/app.pandapay.pandapay
+Open it on your Android phone with the Google account I invited, tap "Become a tester", then install the app. It works after Google approves the app, and I will tell you when. Please stay joined for about three weeks and tell me anything that looks wrong.</pre>
+    <button class="copy" id="copy-msg" type="button">Copy message</button>
+    <p class="small" id="copy-state" role="status"></p>
+    <p class="small links">Closed test link: https://play.google.com/apps/testing/app.pandapay.pandapay<br>Internal test link: https://play.google.com/apps/internaltest/4701336237795171041</p>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('copy-msg');
+    var msg = document.getElementById('msg');
+    var state = document.getElementById('copy-state');
+    function selectText() {
+      var r = document.createRange();
+      r.selectNodeContents(msg);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    }
+    btn.addEventListener('click', function () {
+      var text = msg.textContent;
+      var done = function () { state.textContent = 'Copied. Paste it into your chat with the testers.'; };
+      var fail = function () { selectText(); state.textContent = 'Press and hold, then copy the selected text.'; };
+      try {
+        navigator.clipboard.writeText(text).then(done, fail);
+      } catch (e) { fail(); }
+    });
+  })();
+</script>
+</body>
+</html>

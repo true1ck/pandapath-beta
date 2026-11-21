@@ -1,0 +1,22 @@
+name: Uptime check
+
+# Every 6 hours: the page and its key images must answer 200. A failed run emails
+# the repository owner. GitHub pauses scheduled runs after 60 days with no commits;
+# any push turns them back on.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Page and images respond
+        run: |
+          base="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
+          for path in "/" "/assets/icon.png" "/assets/feature.png" "/assets/shot-01.png" "/assets/shot-08.png"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$base$path")
+            echo "$base$path -> $code"
+            [ "$code" = "200" ] || exit 1
+          done
