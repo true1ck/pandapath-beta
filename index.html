@@ -134,6 +134,25 @@
     .head img { width: 96px; height: 96px; }
   }
   @media (prefers-reduced-motion: reduce) { .strip { scroll-behavior: auto; } }
+
+  /* Guided checklist: three steps, each ticks off; later steps stay muted until the one before is done. */
+  .check-head { display: flex; flex-direction: column; gap: 6px; }
+  .check-head p { color: var(--muted); font-size: 14.5px; margin: 0; }
+  .progress { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+  .check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; counter-reset: cs; }
+  .step { counter-increment: cs; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .step::before { content: counter(cs); width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font: 700 15px var(--font-display); }
+  .step .body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .step h3 { margin: 0; font-family: var(--font-display); font-size: 17px; }
+  .step p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .step .btn { min-height: 48px; }
+  .tick { display: flex; gap: 10px; align-items: center; font-size: 15px; cursor: pointer; min-height: 44px; }
+  .tick input { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+  .step.done { border-color: var(--accent); }
+  .step.done::before { content: "\2713"; }
+  .step.later { opacity: .62; }
+  .step.later .btn.primary { background: transparent; color: var(--accent); }
 </style>
 </head>
 <body>
@@ -156,11 +175,39 @@
     <li><b>Beta</b><span>Closed test</span></li>
   </ul>
 
-  <section class="actions" aria-label="Join the beta">
-    <a class="btn primary" id="join-group" href="https://groups.google.com/g/pandapath-beta-testers" target="_blank" rel="noopener">1. Join the beta group</a>
-    <a class="btn primary" id="join-beta" href="https://play.google.com/apps/testing/app.pandapay.pandapay" target="_blank" rel="noopener">2. Become a beta tester</a>
+  <section class="check-wrap" aria-labelledby="check-h" style="display:flex;flex-direction:column;gap:14px">
+    <div class="check-head">
+      <h2 id="check-h">Join the beta in 3 steps</h2>
+      <p>Use the same Google account for every step. <b id="progress-text">0 of 3 done</b></p>
+    </div>
+    <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
+    <ol class="check">
+      <li class="step" id="step-1">
+        <div class="body">
+          <h3>Join the beta group</h3>
+          <p>Open the group, sign in with the Google account you use in Google Play, and tap <b>Join group</b>. Nothing is installed yet.</p>
+          <a class="btn primary" id="join-group" href="https://groups.google.com/g/pandapath-beta-testers" target="_blank" rel="noopener">1. Join the beta group</a>
+          <label class="tick"><input type="checkbox" id="chk-1"> I joined the group</label>
+        </div>
+      </li>
+      <li class="step later" id="step-2">
+        <div class="body">
+          <h3>Become a beta tester</h3>
+          <p>On your Android phone, open the beta page and tap <b>Become a tester</b>. If it says you cannot join yet, wait a few hours after step 1 and try again.</p>
+          <a class="btn primary" id="join-beta" href="https://play.google.com/apps/testing/app.pandapay.pandapay" target="_blank" rel="noopener">2. Become a beta tester</a>
+          <label class="tick"><input type="checkbox" id="chk-2"> I tapped Become a tester</label>
+        </div>
+      </li>
+      <li class="step later" id="step-3">
+        <div class="body">
+          <h3>Install PandaPay</h3>
+          <p>On that page, tap the link to PandaPay in Google Play and install it. Please stay joined for about three weeks: Google counts testers who stay in the test for 14 days in a row.</p>
+          <label class="tick"><input type="checkbox" id="chk-3"> I installed PandaPay</label>
+        </div>
+      </li>
+    </ol>
+    <p class="state"><strong>Status on 22 Nov 2026.</strong> The app and the beta group are both approved.</p>
   </section>
-  <p class="state"><strong>Status on 22 Nov 2026.</strong> The app and the beta group are both approved. To join the beta, tap button 1, then button 2, with the same Google account. After you join the group, it can take up to a few hours before button 2 lets you in.</p>
 
   <section aria-labelledby="shots-h" style="display:flex;flex-direction:column;gap:12px">
     <h2 id="shots-h">Screenshots</h2>
@@ -207,16 +254,6 @@
     <p>Google has approved the app. If the Play page still shows the temporary name <i>app.pandapay.pandapay (unreviewed)</i>, a plain Android icon or a warning that this is an unverified test build, that is the old cached page. It can take a few hours to change, and the name, icon and screenshots shown on this page then appear.</p>
   </section>
 
-  <section aria-labelledby="join-h" style="display:flex;flex-direction:column;gap:14px">
-    <h2 id="join-h">How to join the beta</h2>
-    <ol class="steps">
-      <li><span>Join the beta group with the Google account you use in Google Play: tap button 1 above and then <b>Join group</b>. This does not install anything yet.</span></li>
-      <li><span>On an Android phone signed in to Google Play with that same account, tap button 2 above.</span></li>
-      <li><span>Tap <b>Become a tester</b>, then tap the link to download PandaPay from Google Play. If it says you cannot join yet, wait a few hours after joining the group and try again.</span></li>
-      <li><span>Install and use the app. Please stay joined for about three weeks: Google counts testers who stay in the test for 14 days in a row.</span></li>
-    </ol>
-  </section>
-
   <section class="share" aria-labelledby="share-h">
     <h2 id="share-h">Message for your testers</h2>
     <pre id="msg">Join the PandaPay closed beta in two steps.
@@ -228,6 +265,30 @@
   </section>
 </div>
 
+<script>
+  (function () {
+    var KEY = 'pp-beta-steps-v1', ids = ['chk-1', 'chk-2', 'chk-3'], st = {};
+    try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+    function render() {
+      var done = 0;
+      ids.forEach(function (id, i) {
+        var c = document.getElementById(id), step = document.getElementById('step-' + (i + 1));
+        c.checked = !!st[id];
+        if (c.checked) done++;
+        step.classList.toggle('done', c.checked);
+        var prevDone = i === 0 ? true : !!st[ids[i - 1]];
+        step.classList.toggle('later', !prevDone && !c.checked);
+      });
+      document.getElementById('progress-text').textContent = done === 3 ? 'All done. Thank you for testing PandaPay.' : done + ' of 3 done';
+      document.getElementById('progress-bar').style.width = (done / 3 * 100) + '%';
+    }
+    ids.forEach(function (id) {
+      document.getElementById(id).addEventListener('change', function (e) { st[id] = e.target.checked; save(); render(); });
+    });
+    render();
+  })();
+</script>
 <script>
   (function () {
     var btn = document.getElementById('copy-msg');

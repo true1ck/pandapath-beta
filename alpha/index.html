@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>PandaPay Internal Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<style>
+
+  html{-webkit-text-size-adjust:100%} body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+
+  /* Layout: one centered column like a phone store page. Banner, app header, facts row,
+     join actions, a snapping screenshot strip, then the text sections. */
+  :root {
+    --bg: #f4f8ef;
+    --surface: #ffffff;
+    --fg: #11151a;
+    --muted: #4b5661;
+    --line: #d9e3cd;
+    --accent: #3a7421;
+    --on-accent: #ffffff;
+    --leaf: #e2f1d0;
+    --note-bg: #eef6e1;
+    --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1310;
+      --surface: #161d18;
+      --fg: #e9f0e6;
+      --muted: #a4b2a6;
+      --line: #2a352d;
+      --accent: #9bd566;
+      --on-accent: #0f1b08;
+      --leaf: #1f2b22;
+      --note-bg: #19241c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1310;
+    --surface: #161d18;
+    --fg: #e9f0e6;
+    --muted: #a4b2a6;
+    --line: #2a352d;
+    --accent: #9bd566;
+    --on-accent: #0f1b08;
+    --leaf: #1f2b22;
+    --note-bg: #19241c;
+    color-scheme: dark;
+  }
+
+
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px; }
+  .wrap { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+  .head { display: flex; gap: 16px; align-items: center; }
+  .head img { width: 72px; height: 72px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); flex: none; }
+  h1 { font-family: var(--font-display); font-size: 26px; line-height: 1.15; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .sub { color: var(--accent); font-weight: 600; font-size: 14px; margin: 4px 0 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .btn { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 52px; padding: 12px 18px; border-radius: 26px;
+    font-weight: 600; font-size: 16px; text-decoration: none; background: var(--accent); color: var(--on-accent); border: 1.5px solid var(--accent); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .small { color: var(--muted); font-size: 13.5px; margin: 0; }
+  .small a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <img src="../assets/icon.png" alt="PandaPay app icon">
+    <div>
+      <h1>PandaPay internal test</h1>
+      <p class="sub">For invited people only</p>
+    </div>
+  </header>
+  <div class="card">
+    <p>This quick test is for the people the PandaPay team has added by Google email. It opens only for those accounts. If you were not added, Google will tell you that you cannot join. Ask the team to add your Google email.</p>
+    <a class="btn" id="join-internal" href="https://play.google.com/apps/internaltest/4701336237795171041" target="_blank" rel="noopener">Open the internal test</a>
+    <p class="small">Sign in to Google Play with the Google account the team added, on an Android phone.</p>
+  </div>
+  <p class="small">Looking to join the public beta instead? <a href="../">Go to the beta page</a>.</p>
+</div>
+</body>
+</html>
