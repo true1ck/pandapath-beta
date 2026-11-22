@@ -155,6 +155,15 @@
   .step.later .btn.primary { background: transparent; color: var(--accent); }
   .foot { text-align: center; padding-top: 4px; }
   .foot a { color: var(--accent); font-weight: 600; }
+  /* phone refinements: roomier tap targets, 2x2 facts on narrow phones, no oversized banner when a phone is turned sideways */
+  .foot a { display: inline-block; padding: 13px 6px; }
+  @media (max-width: 380px) {
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 12px; }
+    .facts li:nth-child(3) { border-left: 0; }
+    .facts li:nth-child(n+3) { padding-top: 12px; border-top: 1px solid var(--line); }
+    .facts li:nth-child(4) { border-left: 1px solid var(--line); }
+  }
+  @media (max-height: 480px) and (orientation: landscape) { .banner { display: none; } }
 </style>
 </head>
 <body>
