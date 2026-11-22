@@ -164,6 +164,7 @@
   @keyframes pp-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 100% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--accent) 0%, transparent); } }
   @media (prefers-reduced-motion: reduce) { .step.pulse { animation: none; } }
   .textlink { color: var(--accent); font-weight: 600; display: inline-block; padding: 10px 0; min-height: 44px; }
+  .step p.newtab { font-size: 13.5px; margin-top: -4px; }
   .step p.hint { background: var(--note-bg); color: var(--fg); border-radius: 12px; padding: 10px 12px; font-size: 14px; }
   .foot { text-align: center; padding-top: 4px; }
   .foot a { color: var(--accent); font-weight: 600; }
@@ -228,7 +229,7 @@
         <div class="body">
           <h3>Join the beta group</h3>
           <p>Open the group, sign in with the Google account you use in Google Play, and tap <b>Join group</b>. Nothing is installed yet.</p>
-          <p class="hint">Joined? The group page then says <b>No conversations yet</b> or shows a welcome note. That is normal and means you are in. Come back to this page: it is still open in your browser tabs.</p>
+          <p class="hint">Joined? The group page then says <b>No conversations yet</b> or shows a welcome note. That is normal and means you are in. The group opens in a <b>new tab</b>: close that tab (or tap Back) to return to this page.</p>
           <a class="btn primary" id="join-group" href="https://groups.google.com/g/pandapath-beta-testers" target="_blank" rel="noopener">1. Join the beta group</a>
           <div class="back-prompt" id="back-1" hidden role="group" aria-label="Did you join the group?">
             <p><b>Welcome back.</b> Did you tap <b>Join group</b>? If the group page showed &ldquo;No conversations yet&rdquo;, you are in.</p>
@@ -245,6 +246,7 @@
           <h3>Become a beta tester</h3>
           <p>On your Android phone, open the beta page and tap <b>Become a tester</b>. If it says you cannot join yet, wait a few hours after step 1 and try again.</p>
           <a class="btn primary" id="join-beta" href="https://play.google.com/apps/testing/app.pandapay.pandapay" target="_blank" rel="noopener">2. Become a beta tester</a>
+          <p class="newtab">Opens in a new tab. Close it, or tap Back, to return here.</p>
           <div class="back-prompt" id="back-2" hidden role="group" aria-label="Did you become a tester?">
             <p><b>Welcome back.</b> Did the Google Play page say <b>You are a tester</b>? Then the next step is to install the app.</p>
             <div class="row">
