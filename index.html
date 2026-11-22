@@ -153,6 +153,18 @@
   .step.done::before { content: "\2713"; }
   .step.later { opacity: .62; }
   .step.later .btn.primary { background: transparent; color: var(--accent); }
+  .back-prompt { background: var(--leaf); border: 1.5px solid var(--accent); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .back-prompt[hidden] { display: none; }
+  .step .back-prompt p { margin: 0; color: var(--fg); font-size: 15px; }
+  .back-prompt .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mini { min-height: 48px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--accent); background: var(--accent); color: var(--on-accent); font: 600 15px var(--font-body); cursor: pointer; flex: 1 1 auto; }
+  .mini.ghost { background: transparent; color: var(--accent); }
+  .mini:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .step.pulse { animation: pp-pulse 1.6s ease-out 1; }
+  @keyframes pp-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 100% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--accent) 0%, transparent); } }
+  @media (prefers-reduced-motion: reduce) { .step.pulse { animation: none; } }
+  .textlink { color: var(--accent); font-weight: 600; display: inline-block; padding: 10px 0; min-height: 44px; }
+  .step p.hint { background: var(--note-bg); color: var(--fg); border-radius: 12px; padding: 10px 12px; font-size: 14px; }
   .foot { text-align: center; padding-top: 4px; }
   .foot a { color: var(--accent); font-weight: 600; }
   /* phone refinements: roomier tap targets, 2x2 facts on narrow phones, no oversized banner when a phone is turned sideways */
@@ -216,7 +228,15 @@
         <div class="body">
           <h3>Join the beta group</h3>
           <p>Open the group, sign in with the Google account you use in Google Play, and tap <b>Join group</b>. Nothing is installed yet.</p>
+          <p class="hint">Joined? The group page then says <b>No conversations yet</b> or shows a welcome note. That is normal and means you are in. Come back to this page: it is still open in your browser tabs.</p>
           <a class="btn primary" id="join-group" href="https://groups.google.com/g/pandapath-beta-testers" target="_blank" rel="noopener">1. Join the beta group</a>
+          <div class="back-prompt" id="back-1" hidden role="group" aria-label="Did you join the group?">
+            <p><b>Welcome back.</b> Did you tap <b>Join group</b>? If the group page showed &ldquo;No conversations yet&rdquo;, you are in.</p>
+            <div class="row">
+              <button type="button" class="mini" id="yes-1">Yes, I joined. Go to step 2</button>
+              <button type="button" class="mini ghost" id="no-1">Not yet</button>
+            </div>
+          </div>
           <label class="tick"><input type="checkbox" id="chk-1"> I joined the group</label>
         </div>
       </li>
@@ -225,13 +245,21 @@
           <h3>Become a beta tester</h3>
           <p>On your Android phone, open the beta page and tap <b>Become a tester</b>. If it says you cannot join yet, wait a few hours after step 1 and try again.</p>
           <a class="btn primary" id="join-beta" href="https://play.google.com/apps/testing/app.pandapay.pandapay" target="_blank" rel="noopener">2. Become a beta tester</a>
+          <div class="back-prompt" id="back-2" hidden role="group" aria-label="Did you become a tester?">
+            <p><b>Welcome back.</b> Did the Google Play page say <b>You are a tester</b>? Then the next step is to install the app.</p>
+            <div class="row">
+              <button type="button" class="mini" id="yes-2">Yes, I am a tester. Go to step 3</button>
+              <button type="button" class="mini ghost" id="no-2">Not yet</button>
+            </div>
+          </div>
           <label class="tick"><input type="checkbox" id="chk-2"> I tapped Become a tester</label>
         </div>
       </li>
       <li class="step later" id="step-3">
         <div class="body">
           <h3>Install PandaPay</h3>
-          <p>On that page, tap the link to PandaPay in Google Play and install it. Please stay joined for about three weeks: Google counts testers who stay in the test for 14 days in a row.</p>
+          <p>On the Google Play page, tap the link to PandaPay, then <b>Install</b>. Once it has installed, tap <b>Open</b>. The app also stays on your phone like any other app. Please stay joined for about three weeks: Google counts testers who stay in the test for 14 days in a row.</p>
+          <a class="textlink" id="open-play" data-nocount href="https://play.google.com/store/apps/details?id=app.pandapay.pandapay" target="_blank" rel="noopener">Open PandaPay in Google Play</a>
           <label class="tick"><input type="checkbox" id="chk-3"> I installed PandaPay</label>
         </div>
       </li>
@@ -289,7 +317,7 @@
     <h2 id="share-h">Message for your testers</h2>
     <pre id="msg">Join the PandaPay closed beta in two steps.
 1) Join the group with the Google account you use in Google Play: https://groups.google.com/g/pandapath-beta-testers
-2) Then on your Android phone open https://play.google.com/apps/testing/app.pandapay.pandapay, tap "Become a tester" and install the app. If it says you cannot join yet, wait a few hours after joining the group and try again. Please stay joined for about three weeks and tell me anything that looks wrong.</pre>
+2) Then on your Android phone open https://play.google.com/apps/testing/app.pandapay.pandapay, tap "Become a tester", then install the app from the link on that page. If it says you cannot join yet, wait a few hours after joining the group and try again. Please stay joined for about three weeks and tell me anything that looks wrong.</pre>
     <button class="copy" id="copy-msg" type="button">Copy message</button>
     <p class="small" id="copy-state" role="status"></p>
     <p class="small links">Beta group link: https://groups.google.com/g/pandapath-beta-testers<br>Closed test link: https://play.google.com/apps/testing/app.pandapay.pandapay</p>
@@ -368,6 +396,56 @@
       document.getElementById(id).addEventListener('change', function (e) { st[id] = e.target.checked; save(); render(); });
     });
     render();
+
+    /* Return flow: remember that a join button was tapped; when the visitor comes back to this tab, ask once and move them on. */
+    var cfg = [
+      { btn: 'join-group', chk: 'chk-1', key: 'pp-s1-opened', prompt: 'back-1', yes: 'yes-1', no: 'no-1', next: 'step-2' },
+      { btn: 'join-beta',  chk: 'chk-2', key: 'pp-s2-opened', prompt: 'back-2', yes: 'yes-2', no: 'no-2', next: 'step-3' }
+    ];
+    function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function put(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+    function reduced() { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+    function show(el) { try { el.scrollIntoView({ block: 'center', behavior: reduced() ? 'auto' : 'smooth' }); } catch (e) { el.scrollIntoView(); } }
+    var shownOnce = {};
+    function checkReturn() {
+      var shown = false;
+      cfg.forEach(function (c) {
+        var box = document.getElementById(c.prompt);
+        var opened = get(c.key);
+        var ticked = !!st[c.chk];
+        if (opened && !ticked) {
+          box.hidden = false;
+          if (!shown && !shownOnce[c.key]) { shownOnce[c.key] = 1; show(box); shown = true; }
+        } else box.hidden = true;
+      });
+      return shown;
+    }
+    cfg.forEach(function (c) {
+      document.getElementById(c.btn).addEventListener('click', function () { put(c.key, String(Date.now())); });
+      document.getElementById(c.yes).addEventListener('click', function () {
+        st[c.chk] = true; save(); put(c.key, null); render();
+        document.getElementById(c.prompt).hidden = true;
+        var nx = document.getElementById(c.next);
+        show(nx);
+        nx.classList.remove('pulse'); void nx.offsetWidth; nx.classList.add('pulse');
+      });
+      document.getElementById(c.no).addEventListener('click', function () { put(c.key, null); document.getElementById(c.prompt).hidden = true; });
+      document.getElementById(c.chk).addEventListener('change', function (e) { if (e.target.checked) put(c.key, null); checkReturn(); });
+    });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { cfg.forEach(function (c) { delete shownOnce[c.key]; }); checkReturn(); } });
+    window.addEventListener('pageshow', function () { cfg.forEach(function (c) { delete shownOnce[c.key]; }); checkReturn(); });
+    window.addEventListener('focus', function () { checkReturn(); });
+    /* Opening the page again later: go to the first step still to do. */
+    setTimeout(function () {
+      if (location.hash) return;
+      if (checkReturn()) return;
+      var done = ids.filter(function (id) { return st[id]; }).length;
+      if (done > 0 && done < 3) {
+        var first = ids.findIndex(function (id) { return !st[id]; });
+        var el = document.getElementById('step-' + (first + 1));
+        if (el) show(el);
+      }
+    }, 350);
   })();
 </script>
 <script>
@@ -401,7 +479,7 @@
       fetch(u + '&e=view', { mode: 'no-cors', keepalive: true });
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]');
-        if (!a) return;
+        if (!a || a.hasAttribute('data-nocount')) return;
         if (a.href.indexOf('groups.google.com') > -1) fetch(u + '&e=group', { mode: 'no-cors', keepalive: true });
         else if (a.href.indexOf('play.google.com') > -1) fetch(u + '&e=join', { mode: 'no-cors', keepalive: true });
       });
